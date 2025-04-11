@@ -7,7 +7,6 @@ RUN set -ex; \
         imagemagick \
         procps \
         samba-client \
-        supervisor \
 #       libreoffice \
     ;
 
@@ -39,15 +38,4 @@ RUN set -ex; \
     apk add --virtual .nextcloud-phpext-rundeps $runDeps; \
     apk del .build-deps
 
-RUN mkdir -p \
-    /var/log/supervisord \
-    /var/run/supervisord \
-    chmod 777 /var/log/supervisord \
-    chmod 777 /var/run/supervisord \
-;
-
-COPY supervisord.conf /
-
 ENV NEXTCLOUD_UPDATE=1
-
-CMD ["/usr/bin/supervisord", "-c", "/supervisord.conf"]
