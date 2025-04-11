@@ -39,8 +39,8 @@ RUN set -ex; \
     apk add --virtual .nextcloud-phpext-rundeps $runDeps; \
     apk del .build-deps
 
-COPY supervisord.conf /
+COPY supervisord.conf start.sh /
 
 ENV NEXTCLOUD_UPDATE=1
 
-CMD ["start.sh"]
+CMD ["/start.sh"]
