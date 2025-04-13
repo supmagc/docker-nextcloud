@@ -14,7 +14,6 @@ RUN set -ex; \
         imagemagick \
         procps \
         samba-client \
-        exiftool \
 #       libreoffice \
     ;
 
