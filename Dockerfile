@@ -1,3 +1,10 @@
+# Influenced by
+# https://github.com/nextcloud/docker/blob/master/.examples/dockerfiles/full/fpm-alpine/Dockerfile
+#
+# - Remove supervisord for user directive compatibility
+# - Add exiftool install
+#
+
 FROM nextcloud:fpm-alpine
 
 RUN set -ex; \
@@ -7,6 +14,7 @@ RUN set -ex; \
         imagemagick \
         procps \
         samba-client \
+        exiftool \
 #       libreoffice \
     ;
 
