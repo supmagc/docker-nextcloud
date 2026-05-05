@@ -16,8 +16,25 @@ env:
   IMAGE_TAG: latest
 
 jobs:
+  check-base:
+    runs-on: ubuntu-latest
+    outputs:
+      needs-updating: ${{ steps.check.outputs.needs-updating }}
+    steps:
+      - name: Check if base image has updated
+        id: check
+        # This only runs on scheduled events
+        if: github.event_name == 'schedule'
+        uses: lucacome/docker-image-update-checker@v1
+        with:
+          base-image: library/nextcloud:fpm-alpine
+          image: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          
   build:
     runs-on: ubuntu-latest
+    if: |
+      github.event_name != 'schedule' || 
+      needs.check-base.outputs.needs-updating == 'true'
     permissions:
       contents: read
       packages: write
